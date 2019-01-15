@@ -1,5 +1,5 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
+import injectSheet from 'react-jss'
 
 const ImageRow = ({ classes, children }) => {
   return (
@@ -14,4 +14,4 @@ const styles = theme => ({
     display: 'flex',
   }
 })
-export default withStyles(styles)(ImageRow)
+export default injectSheet(styles)(ImageRow)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
+import injectSheet from 'react-jss'
 import { green } from 'logger'
 
 const ToolbarBottom = (props) => {
@@ -20,4 +20,4 @@ const styles = theme => ({
   }
 })
 
-export default withStyles(styles)(ToolbarBottom)
+export default injectSheet(styles)(ToolbarBottom)

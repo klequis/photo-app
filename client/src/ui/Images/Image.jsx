@@ -1,6 +1,6 @@
 import React from 'react'
 import { compose } from 'recompose'
-import { withStyles } from '@material-ui/core/styles'
+import injectSheet from 'react-jss'
 import withSizes from 'react-sizes'
 import { green } from 'logger'
 
@@ -44,6 +44,6 @@ const mapSizesToProps = ({ width }) => ({
 })
 
 export default compose(
-  withStyles(styles),
+  injectSheet(styles),
   withSizes(mapSizesToProps)
 )(Image)

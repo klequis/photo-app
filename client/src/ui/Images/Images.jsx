@@ -1,21 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
-import { withStyles } from '@material-ui/core/styles'
+import injectSheet from 'react-jss'
 import Image from './Image'
 import { getImages } from 'store/selectors/image-selectors'
 import { green } from 'logger'
 import ImageRow from './ImageRow'
 
 const groupImages = (images, numCols) => {
-  green('images', images)
-  green('numCols', typeof numCols)
   const grouped = []
   for (var i=0; i<images.length; i+=numCols) {
-    green('i', typeof i)
     grouped.push(images.slice(i,i+numCols))
   }
-  green('groupImages: grouped', grouped)
   return grouped
 }
 
@@ -70,6 +66,6 @@ const mstp = (state) => {
   }
 }
 export default compose(
-  withStyles(styles),
+  injectSheet(styles),
   connect(mstp)
 )(Images)
