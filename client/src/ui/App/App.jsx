@@ -1,16 +1,8 @@
 import React from 'react'
-import {
-  Route,
-  Switch,
-} from 'react-router-dom'
 import { compose } from 'recompose'
 import { withStyles } from '@material-ui/core/styles'
 
 // User
-import PrivateRoute from 'ui/auth/PrivateRoute'
-import LoginForm from 'ui/auth/LoginForm'
-import RegisterForm from 'ui/auth/RegisterForm'
-import SettingsForm from 'ui/auth/SettingsForm'
 import Images from 'ui/Images'
 import ToolbarBottom from 'ui/ToolbarBottom'
 
