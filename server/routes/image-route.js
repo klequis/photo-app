@@ -1,5 +1,5 @@
 import express from 'express'
-import { pick } from 'ramda'
+import { pick, merge } from 'ramda'
 import formidable from 'formidable'
 import { red, blue, yellow } from '../logger'
 import path from 'path'
@@ -8,6 +8,9 @@ import S3 from 'aws-sdk/clients/s3'
 
 const router = express.Router()
 const bucketName = 'photo-app-tvc'
+const bucketRegion = 'us-west-2'
+const baseUrl = `https://s3-${bucketRegion}.amazonaws.com/${bucketName}/`
+const s3 = new S3({region: bucketRegion})
 
 const getDateAndTime = () => {
   var today = new Date()
@@ -35,29 +38,31 @@ const checkDirectoryExists = (dir) => {
   }
 }
 
+const shapeData = (data) => {
+  const withUrl = data.Contents.map(i => {
+    return merge(i, { url: `${baseUrl}${i.Key}`})
+  })
+  const o = { images: withUrl, nextToken: data.NextContinuationToken}
+  yellow('o', o)
+  return o
+}
+
 router.get('/', async (req, res) => {
+  // getBucketWebsite()
+  // getSignedUrl()
   try {
     const params = {
       Bucket: bucketName,
       MaxKeys: 10
-     }
-    const s3 = new S3()
-    const images = await s3.listObjectsV2(params).promise()
-    console.log('images', images)
-    res.send(images)
+    }
+    const data = await s3.listObjectsV2(params).promise()
+    const shapedData = shapeData(data)
+    res.send(shapedData)
   }
   catch (e) {
     console.log('ERROR', e.stack)
     res.status(400).send(e)
   }
-
-  // s3.listObjects(params, function(err, data) {
-  //   if (err) {
-  //     console.log('ERROR', err.stack)
-  //   } else {
-  //     console.log(data)
-  //   }
-  // })
 })
 
 router.post('/', async (req, res) => {
