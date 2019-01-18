@@ -1,17 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
-import { withStyles } from '@material-ui/core/styles'
+import injectSheet from 'react-jss'
 import * as pageMessageSelectors from 'store/selectors/page-message-selectors'
-import { Paper, Typography } from '@material-ui/core'
+import Text from 'elements/Text'
 import { green } from 'logger'
 
 const PageMessage = ({ classes, message = '', variant }) => {
   // green('PageMessage: message', message)
   const ret = message !== ''
-    ? <Paper className={classes.root}>
-        <Typography variant='h5' className={classes.headline}>{message}</Typography>
-      </Paper>
+    ? <div className={classes.root}>
+        <Text variant='h5' className={classes.headline}>{message}</Text>
+      </div>
     : null
   return ret
 }
@@ -38,6 +38,6 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-  withStyles(styles),
+  injectSheet(styles),
   connect(mapStateToProps)
 )(PageMessage)

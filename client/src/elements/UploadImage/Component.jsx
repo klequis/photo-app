@@ -3,22 +3,29 @@ import PropTypes from 'prop-types'
 import { compose } from 'recompose'
 import { connect } from 'react-redux'
 import Dropzone from 'react-dropzone'
-import { Paper, Button } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
-import DeleteIcon from '@material-ui/icons/Delete'
+import injectSheet from 'react-jss'
+import iTrashcan from 'media/icons/trashcan.svg'
 
 /* User */
 import * as imageActions from 'store/actions/image-actions'
 import * as uploadSelectors from 'store/selectors/image-selectors'
 import ResponsiveImage from 'elements/ResponsiveImage'
 
-const dropZoneDefault = <ResponsiveImage
-  src='https://s3-us-west-2.amazonaws.com/photo-app-tvc/drag-or-browse.png' alt='drag and drop of click to browse'
-  />
+// const dropZoneDefault = <ResponsiveImage
+//   src='https://s3-us-west-2.amazonaws.com/photo-app-tvc/drag-or-browse.png' alt='drag and drop of click to browse'
+//   />
 
-const dropZoneReject = <ResponsiveImage
-  src='https://s3-us-west-2.amazonaws.com/tvc-events/media/drag-reject.png' alt='image rejected'
-  />
+const dropZoneDefault = <div style={{
+  padding: 100, backgroundColor: 'green'
+}}></div>
+
+// const dropZoneReject = <ResponsiveImage
+//   src='https://s3-us-west-2.amazonaws.com/tvc-events/media/drag-reject.png' alt='image rejected'
+//   />
+
+const dropZoneReject = <div style={{
+  padding: 100, backgroundColor: 'red'
+}}></div>
 
 class UploadImage extends React.Component {
   constructor(props) {
@@ -64,7 +71,7 @@ class UploadImage extends React.Component {
   render() {
     const { classes, enableEdit } = this.props
     return (
-      <Paper id='UploadImage-wrapper' className={classes.wrapper}>
+      <div id='UploadImage-wrapper' className={classes.wrapper}>
         {
           this.state.imageUrl
             ? <div className={classes.imageDiv}>
@@ -73,7 +80,7 @@ class UploadImage extends React.Component {
                   alt='uploaded image'
                 />
                 {enableEdit
-                  ? <Button
+                  ? <button
                       mini
                       variant="fab"
                       color='secondary'
@@ -81,8 +88,8 @@ class UploadImage extends React.Component {
                       className={classes.fab}
                       onClick={this.removeImage}
                     >
-                      <DeleteIcon />
-                    </Button>
+                      <img src={iTrashcan} alt='delete' />
+                    </button>
                   : null
                 }
 
@@ -103,13 +110,14 @@ class UploadImage extends React.Component {
               }}
               </Dropzone>
         }
-      </Paper>
+      </div>
     )
   }
 }
 
 const style = {
-  backgroundColor: 'transparent',
+  // backgroundColor: 'transparent',
+  backgroundColor: 'orange',
   width: '100%',
   display: 'flex',
   alignItems: 'center',
@@ -139,12 +147,14 @@ const styles = theme => ({
   imageDiv: {
     position: 'relative',
     zIndex: '0',
+    backgroundColor: 'blue',
   },
   wrapper: {
     maxWidth: '100%',
     height: 'auto',
     alignItems: 'stretch',
-    justifyContent: 'stretch'
+    justifyContent: 'stretch',
+    backgroundColor: 'green',
   },
 })
 
@@ -156,7 +166,7 @@ const mapStateToProps = (state) => {
 }
 
 export default compose(
-  withStyles(styles),
+  injectSheet(styles),
   connect(mapStateToProps, imageActions)
 )(UploadImage)
 

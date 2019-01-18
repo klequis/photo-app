@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 import { reduxForm } from 'redux-form'
 import { Button } from '@material-ui/core'
 import { compose } from 'recompose'
-import { withStyles } from '@material-ui/core/styles'
+import injectSheet from 'react-jss'
 import PageMessage from 'ui/elements/PageMessage'
 import TextFieldRedux from 'ui/elements/TextFieldRedux'
 import styles from './styles'
@@ -113,7 +113,7 @@ const mapStateToProps = (state) => ({
 const actions = { userLoginRequest, pageMessage }
 
 export default compose(
-  withStyles(styles),
+  injectSheet(styles),
   connect(mapStateToProps, actions),
   reduxForm({
     form: 'LoginForm',

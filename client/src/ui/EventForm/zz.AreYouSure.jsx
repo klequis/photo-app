@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
+import injectSheet from 'react-jss'
+import Text from 'elements/Text'
 import Modal from '@material-ui/core/Modal'
 import Button from 'elements/Button'
 
@@ -30,13 +30,7 @@ class AreYouSure extends React.Component {
           disableBackdropClick
         >
           <div style={getModalStyle()} className={classes.paper}>
-            <Typography
-              variant='h6'
-              id='modal-title'
-              align='center'
-            >
-              Are you sure you want to cancel and discard all changes?
-            </Typography>
+            <Text h6 center>Are you sure you want to cancel and discard all changes?</Text>
             <div className={classes.controls}>
               <Button
                 onClick={() => close(true)}
@@ -78,4 +72,4 @@ const styles = theme => ({
   },
 })
 
-export default withStyles(styles)(AreYouSure)
+export default injectSheet(styles)(AreYouSure)

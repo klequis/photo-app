@@ -1,18 +1,18 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core'
-import { Typography } from '@material-ui/core'
+import injectSheet from 'react-jss'
+import Text from 'elements/Text'
 
 const A = ({ classes, children, color}) => {
 
   return (
-    <Typography
-      variant='h4'
+    <Text
+      h4
       align='center'
       color={color}
       className={classes.heading}
     >
       {children}
-    </Typography>
+    </Text>
   )
 }
 
@@ -24,4 +24,4 @@ const styles = theme => ({
   }
 })
 
-export default withStyles(styles)(A)
+export default injectSheet(styles)(A)

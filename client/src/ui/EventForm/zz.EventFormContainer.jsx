@@ -1,7 +1,4 @@
 import React from 'react'
-// import { connect } from 'react-redux'
-// import { mergeAll, path } from 'ramda'
-// import { hasProp } from 'lib/hasProp'
 import EventForm from './EventForm'
 
 export const EDIT_MODE = 'edit-mode'

@@ -3,7 +3,7 @@
 import React from 'react'
 import { compose } from 'recompose'
 import classNames from 'classnames'
-import { withStyles } from '@material-ui/core/styles'
+import injectSheet from 'react-jss'
 import { Paper, withWidth } from '@material-ui/core'
 import red from '@material-ui/core/colors/red'
 import green from '@material-ui/core/colors/green'
@@ -29,7 +29,7 @@ class Breakpoints extends React.Component {
       [this.props.classes.positionFixedBottom]: this.state.position === 'bottom',
     })
     return (
-      <Paper square elevation={4} className={className}>
+      <div square elevation={4} className={className}>
         <div className={classes.width}>
           <span className={classes.widthSize}>{width.toUpperCase()}</span>
         </div>
@@ -37,7 +37,7 @@ class Breakpoints extends React.Component {
           <button name='top' className={classes.button} onClick={this.positionClick}>Top</button>
           <button name='bottom' className={classes.button} onClick={this.positionClick}>Bottom</button>
         </div>
-      </Paper>
+      </div>
     )
   }
 
@@ -102,5 +102,5 @@ export const styles = theme => {
 
 export default compose(
   withWidth(),
-  withStyles(styles),
+  injectSheet(styles),
 )(Breakpoints)

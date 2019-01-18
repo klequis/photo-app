@@ -1,14 +1,14 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
+import Text from 'elements/Text'
+import injectSheet from 'react-jss'
 
 const PastEvent = ({ classes, event }) => {
   return (
     event === {}
     ? <div>
-        <Typography variant='display1' className={classes.pastEvent}>
+        <Text body1 className={classes.pastEvent}>
           This event is in the past
-        </Typography></div>
+        </Text></div>
     : null
   )
 }
@@ -20,4 +20,4 @@ const styles = theme => ({
   }
 })
 
-export default withStyles(styles)(PastEvent)
+export default injectSheet(styles)(PastEvent)

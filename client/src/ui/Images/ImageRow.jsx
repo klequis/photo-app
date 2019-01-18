@@ -12,6 +12,7 @@ const ImageRow = ({ classes, children }) => {
 const styles = theme => ({
   wrapper: {
     display: 'flex',
+    backgroundColor: 'orange',
   }
 })
 export default injectSheet(styles)(ImageRow)

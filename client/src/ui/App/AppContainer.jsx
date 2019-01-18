@@ -4,7 +4,6 @@ import { compose } from 'recompose'
 import { parse } from '../../api/cookie-parser'
 import jwt from 'jsonwebtoken'
 import 'url-search-params-polyfill'
-import withRoot from 'ui/withRoot'
 import { getMaxKeys } from 'store/selectors/toolbar-selectors'
 
 // Store
@@ -70,6 +69,5 @@ const mapStateToProps = (state) => {
 }
 
 export default compose(
-  withRoot,
   connect(mapStateToProps, actions),
 )(AppContainer)

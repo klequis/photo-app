@@ -71,6 +71,9 @@ class Images extends React.Component {
 
 const styles = theme => ({
   wrapper: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'blue',
     // display: 'flex',
     // flexFlow: 'row wrap'
 

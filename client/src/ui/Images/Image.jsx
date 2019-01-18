@@ -23,25 +23,38 @@ const Image = (props) => {
   }
   return (
     <div className={classes.wrapper} style={wrapperStyle}>
+      <div className={classes.inner}>
       <ImageToolbar
         deleteImage={deleteImage}
         imageKey={image.Key}
       />
       <img src={image.url} alt='unknown' className={classes.imgFluid} />
+      </div>
     </div>
   )
 }
-
+// border: '1px solid white',
 const styles = theme => ({
   wrapper: {
-    backgroundColor: 'rgb(50, 50, 50)',
-    margin: 1,
-    padding: '0 16px',
-    display: 'flex',
-    alignItems: 'center',
+    backgroundColor: 'rgb(100, 100, 100)',
+    // padding: '4px 4px 4px 4px',
+
     flexGrow: 0,
     flexShrink: 0,
-    position: 'relative',
+    // position: 'relative',
+    // '&:nth-child(-n+2)': {
+      // backgroundColor: 'blue',
+      // // border: '3px solid blue',
+      // padding: '4px 0 0 4px',
+    // },
+  },
+  inner: {
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor: 'rgb(50, 50, 50)',
+    padding: '0 16px',
+    width: '100%',
+    height: '100%',
   },
   imgFluid: {
     display: 'block',

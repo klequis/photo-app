@@ -39,7 +39,8 @@ class ToolbarBottom extends React.Component {
           <input type='number' value={maxKeys} onChange={this.maxKeysChange} />
           <button>Refresh</button>
         </div>
-        <Link to='upload' className={classes.upload}>Upload</Link>
+        <Link to='/' className={classes.upload}>Home</Link>
+        <Link to='/upload' className={classes.upload}>Upload</Link>
       </div>
     )
   }

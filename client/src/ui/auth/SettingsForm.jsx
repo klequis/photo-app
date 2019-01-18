@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
-import { Button, Typography } from '@material-ui/core'
 import { compose } from 'recompose'
+import Text from 'elements/Text'
 import { Redirect } from 'react-router-dom'
-import { withStyles } from '@material-ui/core/styles'
+import injectSheet from 'react-jss'
 import TextFieldRedux from 'ui/elements/TextFieldRedux'
 import styles from './styles'
 import * as authActions from 'store/actions/auth-actions'
@@ -30,7 +30,7 @@ class SettingsForm extends React.Component {
       handleSubmit(this.onSubmit)()
     }
   }
-  
+
   onCancel = () => {
     this.props.history.push('/')
   }
@@ -45,9 +45,9 @@ class SettingsForm extends React.Component {
           <PageTitle color='primary'>
             Settings
           </PageTitle>
-          <Typography variant='h6'>
+          <Text h6>
             Enter your password
-          </Typography>
+          </Text>
           <form className={classes.form}>
             <TextFieldRedux
               fieldName='password'
@@ -60,7 +60,7 @@ class SettingsForm extends React.Component {
               onKeyDown={(e) => { this.handleEnterKey(e, handleSubmit) }}
             />
             <div className={classes.actions}>
-              <Button
+              <button
                 className={classes.submitButton}
                 type='button'
                 color='primary'
@@ -69,8 +69,8 @@ class SettingsForm extends React.Component {
                 disabled={pristine || submitting}
               >
                 Change Password
-              </Button>
-              <Button
+              </button>
+              <button
                 className={classes.cancelButton}
                 type='button'
                 variant='contained'
@@ -78,7 +78,7 @@ class SettingsForm extends React.Component {
                 onClick={this.onCancel}
               >
                 Cancel
-              </Button>
+              </button>
             </div>
           </form>
         </div>
@@ -95,7 +95,7 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-  withStyles(styles),
+  injectSheet(styles),
   connect(mapStateToProps, authActions),
   reduxForm({
     form: 'LoginForm',

@@ -4,7 +4,7 @@ import { reduxForm } from 'redux-form'
 import { Redirect } from 'react-router-dom'
 import { Button } from '@material-ui/core'
 import { compose } from 'recompose'
-import { withStyles } from '@material-ui/core/styles'
+import injectSheet from 'react-jss'
 // actions, selectors
 import { userRegisterRequestKey } from 'store/actions/auth-actions'
 import * as requestSelectors from 'store/selectors/request-selectors'
@@ -107,7 +107,7 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-  withStyles(styles),
+  injectSheet(styles),
   connect(mapStateToProps, authActions),
   reduxForm({
     form: 'RegisterForm',

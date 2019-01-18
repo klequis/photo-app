@@ -1,1 +1,1 @@
-export { default } from './EventFormContainer'
+export { default } from './EventForm'

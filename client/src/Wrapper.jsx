@@ -38,9 +38,9 @@ const styles = theme => ({
       webkitTextSizeAdjust: 'none',
       msOverflowStyle: 'scrollbar',
       '@media print': {
-      backgroundColor: 'white',
-      minWidth: 320,
+        minWidth: 320,
       },
+      backgroundColor: 'red',
     },
     '*, *::before, *::after': {
       boxSizing: 'inherit',
@@ -55,4 +55,4 @@ const styles = theme => ({
 export default compose(
   withThemeProvider,
   injectSheet(styles)
-) (Wrapper)
+)(Wrapper)

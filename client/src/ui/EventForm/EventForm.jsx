@@ -1,68 +1,79 @@
 import React from 'react'
-import { EDIT_MODE } from './EventFormContainer'
-import EventSubForm from './EventSubForm'
-import AreYouSure from './AreYouSure'
-import PageTitle from 'elements/PageTitle'
+import { reduxForm } from 'redux-form'
+import { compose } from 'recompose'
+import injectSheet from 'react-jss'
+import UploadImage from 'elements/UploadImage'
 
 class EventForm extends React.Component {
   state = {
     imageUrl: '',
     free: this.props.free,
-    areYouSure: false,
+    // areYouSure: false,
   }
 
   onSubmit = (values) => {
     const { mode, eventUpdate, eventCreate } = this.props
-    if (mode === EDIT_MODE) {
-      eventUpdate(values)
-    } else {
-      eventCreate(values)
-    }
+    // if (mode === EDIT_MODE) {
+    //   eventUpdate(values)
+    // } else {
+    //   eventCreate(values)
+    // }
   }
 
   onCancel = (pristine) => {
     if (pristine) {
       this.props.goBack()
     } else {
-      this.setState({ areYouSure: true })
+      // this.setState({ areYouSure: true })
+      alert('are you sure disabled')
     }
   }
 
   closeModal = (close) => {
     // the modal always closes when button yes
     // or no is clicked
-    this.setState({ areYouSure: false })
+    // this.setState({ areYouSure: false }) are you sure disabled
+
     // but the form only closes on yes click
     if (close) {
       this.props.goBack()
     }
   }
 
-  freeClick = () => {
-    this.setState((prevState) => {
-      return { free: !prevState.free }
-    })
-  }
 
   render() {
-    const { areYouSure } = this.state
-    const { event } = this.props
+    const { classes } = this.props
     return (
-      <div id='EventForm'>
-        <AreYouSure open={areYouSure} close={this.closeModal} />
-        <PageTitle>
-          Create Event
-        </PageTitle>
-        <EventSubForm
-          initialValues={event}
-          freeClick={this.freeClick}
-          free={this.free}
-          onCancel={this.onCancel}
-          onSubmit={this.onSubmit}
-        />
+      <div id='EventForm' className={classes.wrapper}>
+        <div id='UploadImage-inner' className={classes.inner}>
+          <UploadImage
+            fieldName='imageUrl'
+            fieldLabel='Upload Image'
+            enableEdit={true}
+          />
+        </div>
       </div>
     )
   }
 }
 
-export default EventForm
+const styles = {
+  wrapper: {
+    // backgroundColor: 'red',
+    width: 100,
+    display: 'flex',
+    justifyContent: 'center',
+    // alignItems: 'center',
+  },
+  inner: {
+    maxWidth: 400,
+    display: 'flex',
+    justifyContent: 'center',
+  }
+}
+export default compose(
+  injectSheet(styles),
+  reduxForm({
+    form: 'EventForm',
+  })
+)(EventForm)
