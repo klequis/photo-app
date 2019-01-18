@@ -13,7 +13,6 @@ export const getRequest = (state, key) => {
     : req
 }
 
-// ** Don't think this is used or eneded?
 export const getRequestStatus = (state, key) => {
   if (state.requests.hasOwnProperty(key)) {
     return state.requests[key].status
@@ -22,7 +21,6 @@ export const getRequestStatus = (state, key) => {
 }
 
 export const getRequests = (state) => {
-
   return state.requests
 }
 

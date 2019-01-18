@@ -5,7 +5,7 @@ import { parse } from '../../api/cookie-parser'
 import jwt from 'jsonwebtoken'
 import 'url-search-params-polyfill'
 import withRoot from 'ui/withRoot'
-import { red } from 'logger'
+import { getMaxKeys } from 'store/selectors/toolbar-selectors'
 
 // Store
 import {
@@ -19,6 +19,8 @@ import {
 } from 'store/actions/image-actions'
 // User
 import App from './App'
+// import { red } from 'logger'
+import { green } from 'logger'
 
 class AppContainer extends React.Component {
 
@@ -37,8 +39,18 @@ class AppContainer extends React.Component {
     }
   }
 
+  getImages = () => {
+    green('AppContainer.getImages: maxKeys', this.props.maxKeys)
+    this.props.imagesListRequest(this.props.maxKeys)
+  }
+
   componentDidMount() {
-    this.props.imagesListRequest()
+    this.getImages()
+  }
+
+  componentDidUpdate() {
+    // green('AppContainer.componentDidUpdate: maxKeys', this.props.maxKeys)
+    this.getImages()
   }
 
   render() {
@@ -52,7 +64,8 @@ const actions = { userSetLoggedIn, imagesListRequest }
 
 const mapStateToProps = (state) => {
   return {
-    userId: getUserId(state)
+    userId: getUserId(state),
+    maxKeys: getMaxKeys(state),
   }
 }
 

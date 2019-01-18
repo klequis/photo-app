@@ -1,10 +1,20 @@
+import { remove } from 'ramda'
 import {
-  imageUploadOneKey,
+  imagesDeleteOneKey,
   imagesListKey,
+  imageUploadOneKey,
 } from '../actions/image-actions'
 
 // eslint-disable-next-line
 import { blue } from 'logger'
+
+const getIndexOfImage = (arr, key) => {
+  return arr.findIndex(i => i.Key === key)
+}
+
+const removeImage = (arr, key) => {
+  return remove(getIndexOfImage(arr, key), 1, arr)
+}
 
 export const imageUpload = (state = {}, { type, payload }) => {
   switch (type) {
@@ -27,6 +37,10 @@ export const imagesList = (state = [], { type, payload }) => {
     case imagesListKey:
       // blue('imagesList: payload', payload.images.data.images)
       return payload.images.data.images
+    case imagesDeleteOneKey:
+      const m = removeImage(state, payload.key)
+      // blue('m', m)
+      return m
     default:
       return state
   }

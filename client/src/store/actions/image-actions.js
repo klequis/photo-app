@@ -1,9 +1,10 @@
 import { createRequestThunk, logError } from './action-helpers'
 import api from 'api'
-import { orange } from 'logger'
+import { /* orange,*/ red } from 'logger'
 
-export const imagesListKey = 'imagesListKey'
+// Read
 export const imagesListRequestKey = 'imagesListRequestKey'
+export const imagesListKey = 'imagesListKey'
 
 export const imagesList = (images) => {
   return ({
@@ -32,5 +33,34 @@ export const imageUploadOneRequest = createRequestThunk({
   key: imageUploadOneRequestKey,
   success: [ uploadOneImage ],
   failure: [ error => logError(error, imageUploadOneRequestKey) ],
+})
+
+// Delete
+
+
+
+export const imagesDeleteOneKey = 'imagesDeleteOneKey'
+export const imagesDeleteOneRequestKey = 'imagesDeleteOneRequestKey'
+
+/*
+    @param data
+    format: { Key: string, action: string }
+    where action is one of: deleteOne
+    * is the only action type so far
+*/
+const imagesDeleteOne = (data) => {
+  const key = data.Key
+  // orange('imagesDeleteOne: key', key)
+  return ({
+    type: imagesDeleteOneKey,
+    payload: { key }
+  })
+}
+
+export const imagesDeleteOneRequest = createRequestThunk({
+  request: api.images.delete,
+  key: imagesDeleteOneRequestKey,
+  success: [imagesDeleteOne],
+  failure: [error => red(error)]
 })
 

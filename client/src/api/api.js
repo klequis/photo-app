@@ -6,6 +6,57 @@ import fetchPostalCodes from './fetchPostalCodes'
 import { pink } from 'logger'
 
 export default {
+  images: {
+    async list(maxKeys) {
+      // const maxKeys = JSON.stringify({ maxKeys: 30 })
+      // pink('images.list: maxKeys', maxKeys)
+      try {
+        const data = await fetchJson(
+          `/api/images?maxKeys=${maxKeys}`,
+          {
+            method: 'GET',
+            // body: maxKeys,
+          }
+          )
+          // pink('api.images.list: data', data)
+          // pink('api.images.list: data.images', data.images)
+        return { data }
+      }
+      catch (e) {
+        const error = await e.error
+        throw error
+      }
+    },
+    create(formData) {
+      return fetchUploadImage(
+        '/api/images',
+        {
+          method: 'POST',
+          body: formData
+        }
+      ).then(data => {
+        return data
+      }).catch(e => {
+        const error = e.error
+        throw error
+      })
+    },
+    async delete(key) {
+      try {
+        const data = await fetchJson(
+          `/api/images/${key}`,
+          {
+            method: 'DELETE'
+          }
+        )
+        return data
+      }
+      catch (e) {
+        const error = await e.error
+        throw error
+      }
+    },
+  },
   users: {
     async register(user) {
       try {
@@ -163,37 +214,5 @@ export default {
       }
     },
   },
-  images: {
-    async list() {
-      try {
-        const data = await fetchJson(
-          '/api/images',
-          {
-            method: 'GET'
-          }
-          )
-          // pink('api.images.list: data', data)
-          // pink('api.images.list: data.images', data.images)
-        return { data }
-      }
-      catch (e) {
-        const error = await e.error
-        throw error
-      }
-    },
-    create(formData) {
-      return fetchUploadImage(
-        '/api/images',
-        {
-          method: 'POST',
-          body: formData
-        }
-      ).then(data => {
-        return data
-      }).catch(e => {
-        const error = e.error
-        throw error
-      })
-    },
-  },
+
 }

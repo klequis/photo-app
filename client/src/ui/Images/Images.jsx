@@ -2,9 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import injectSheet from 'react-jss'
+import {
+  imagesDeleteOneRequestKey,
+  imagesDeleteOneRequest,
+} from 'store/actions/image-actions'
+import {
+  getNumCols,
+} from 'store/selectors/toolbar-selectors'
+import { getRequestStatus } from 'store/selectors/request-selectors'
 import Image from './Image'
 import { getImages } from 'store/selectors/image-selectors'
-import { green } from 'logger'
+// import { green } from 'logger'
 import ImageRow from './ImageRow'
 
 const groupImages = (images, numCols) => {
@@ -15,41 +23,50 @@ const groupImages = (images, numCols) => {
   return grouped
 }
 
-const Images = ({ images, classes, numCols }) => {
-  // const numImages = images.length
-  // const numRows = numImages / numCols
+class Images extends React.Component {
+  state = {
+    selected: []
+  }
 
+  deleteImage = async (key) => {
+    // green('deleteImage: key', key)
+    await this.props.imagesDeleteOneRequest(key)
+  }
 
-  if (images === undefined) { return null }
+  renderImages = () => {
+    const { images, numCols } = this.props
+    const imageGroups = groupImages(images, numCols)
+    return imageGroups.map((ig, idx) => {
+      return (
+        <ImageRow key={`ig${idx}`}>
+          {
+            ig.map(img => {
+              return (
+                <Image
+                  key={img.Key}
+                  image={img}
+                  numCols={numCols}
+                  deleteImage={this.deleteImage}
+                />
+              )
+            })
+          }
+        </ImageRow>
+      )
+    })
+  }
 
-  const imageGroups = groupImages(images, numCols)
+  render() {
 
-  const renderedImages = imageGroups.map((ig, idx) => {
+    const { classes, images, deleteRequestStatus } = this.props
+    if (images === undefined) { return null }
+    if (deleteRequestStatus === 'pending') return null
     return (
-      <ImageRow key={`ig${idx}`}>
-        {
-          ig.map(img => {
-            return (
-              <Image
-                key={img.Key}
-                image={img}
-                numCols={numCols}
-              />
-            )
-          })
-        }
-      </ImageRow>
+      <div className={classes.wrapper}>
+        {this.renderImages()}
+      </div>
     )
-  })
-
-
-
-
-  return (
-    <div className={classes.wrapper}>
-      {renderedImages}
-    </div>
-  )
+  }
 }
 
 const styles = theme => ({
@@ -62,10 +79,15 @@ const styles = theme => ({
 
 const mstp = (state) => {
   return {
-    images: getImages(state)
+    images: getImages(state),
+    deleteRequestStatus: getRequestStatus(state, imagesDeleteOneRequestKey),
+    numCols: getNumCols(state),
   }
 }
+
+const actions = { imagesDeleteOneRequest }
+
 export default compose(
   injectSheet(styles),
-  connect(mstp)
+  connect(mstp, actions)
 )(Images)

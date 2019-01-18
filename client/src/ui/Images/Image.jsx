@@ -2,10 +2,19 @@ import React from 'react'
 import { compose } from 'recompose'
 import injectSheet from 'react-jss'
 import withSizes from 'react-sizes'
-import { green } from 'logger'
+import ImageToolbar from './ImageToolbar'
+// import { green } from 'logger'
 
 const Image = (props) => {
-  const { classes, image, numCols, width } = props
+  const {
+    classes,
+    image,
+    numCols,
+    width,
+    deleteImage
+  } = props
+
+  // green('Image: image', image)
   const calcWidth = (width - 20) / numCols
 
   const wrapperStyle = {
@@ -14,6 +23,10 @@ const Image = (props) => {
   }
   return (
     <div className={classes.wrapper} style={wrapperStyle}>
+      <ImageToolbar
+        deleteImage={deleteImage}
+        imageKey={image.Key}
+      />
       <img src={image.url} alt='unknown' className={classes.imgFluid} />
     </div>
   )
@@ -28,6 +41,7 @@ const styles = theme => ({
     alignItems: 'center',
     flexGrow: 0,
     flexShrink: 0,
+    position: 'relative',
   },
   imgFluid: {
     display: 'block',
