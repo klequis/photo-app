@@ -30,7 +30,7 @@ class ToolbarBottom extends React.Component {
 
   render() {
     const { classes, numCols, maxKeys } = this.props
-    green('ToolbarBottom: maxKeys', maxKeys)
+    // green('ToolbarBottom: maxKeys', maxKeys)
     return (
       <div className={classes.wrapper}>
 

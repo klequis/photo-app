@@ -43,27 +43,52 @@ const shapeData = (data) => {
     return merge(i, { url: `${baseUrl}${i.Key}`})
   })
   const o = { images: withUrl, nextToken: data.NextContinuationToken}
-  yellow('o', o)
+  // yellow('o', o)
   return o
 }
 
 router.get('/', async (req, res) => {
   // getBucketWebsite()
   // getSignedUrl()
+  yellow('GET', req)
+  const maxKeys = req.query.maxKeys
   try {
+    // const maxKeys = req.params.maxKeys
+    // yellow('maxKeys', maxKeys)
     const params = {
       Bucket: bucketName,
-      MaxKeys: 10
+      MaxKeys: maxKeys || 10
     }
     const data = await s3.listObjectsV2(params).promise()
     const shapedData = shapeData(data)
     res.send(shapedData)
   }
   catch (e) {
-    console.log('ERROR', e.stack)
+    red('ERROR', e.stack)
     res.status(400).send(e)
   }
 })
+
+router.delete('/:key', async (req, res) => {
+  try {
+    const key = req.params.key
+    yellow('delete: key', key)
+    const params = {
+      Bucket: bucketName,
+      Key: key,
+    }
+    const data = s3.deleteObject(params).promise()
+    // data is always {} so send the key back as the response
+
+    res.send({ Key: key, action: 'deleteOne'})
+  }
+  catch (e) {
+    res.status(400).send()
+  }
+
+})
+
+
 
 router.post('/', async (req, res) => {
   try {
@@ -86,26 +111,24 @@ router.post('/', async (req, res) => {
           const s3 = new S3()
           const params = { Bucket: bucketName, Key: newName, Body: data }
           s3.upload(params, function (err, data) {
-            console.log('done', err, data)
+            red('done', err, data)
             const ret = pick(['Location', 'Key'], data)
             res.send(ret)
           })
         })
-        console.log('newFileName:  ', newFileName)
         fs.unlink(newFileName, (err) => {
           if (err) {
             red('error while deleting', err)
           }
-          console.log('Successfully deleted ', newFileName)
+          // console.log('Successfully deleted ', newFileName)
         })
       })
     })
     form.on('error', function (err) {
-      red('** form.on.error')
-      console.log('An error has occured: \n' + err)
+      red('An error has occured: \n' + err)
     })
     form.on('end', function () {
-      red('** form.on.end')
+      // red('** form.on.end')
       // res.status(200).send({"message": "done"})
     })
     form.parse(req)

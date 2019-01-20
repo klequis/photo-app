@@ -125,7 +125,6 @@ router.post('/users', async (req, res, next) => {
     user.salt = salt
     // check if the email is already registered
     const alreadyRegistered = await find('users', { email: user.email }, { _id: 0, email: 1 })
-    yellow('alreadyRegistered', alreadyRegistered)
     // nothing found: { data: [], meta: {} }
     const data = alreadyRegistered.data
     if (data.length > 0) {

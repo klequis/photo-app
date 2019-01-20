@@ -16,7 +16,7 @@ export const numCols = (state = 3, { type, payload }) => {
   }
 }
 
-export const maxKeys = (state = 10, { type, payload }) => {
+export const maxKeys = (state = 3, { type, payload }) => {
   switch (type) {
     case toolbarSetMaxKeysKey:
       return payload.numKeys

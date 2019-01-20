@@ -1,9 +1,9 @@
 import React from 'react'
 import { compose } from 'recompose'
 import injectSheet from 'react-jss'
-import withSizes from 'react-sizes'
 import ImageToolbar from './ImageToolbar'
-// import { green } from 'logger'
+import withSizes from 'react-sizes'
+import { green } from 'logger'
 
 const Image = (props) => {
   const {
@@ -11,25 +11,40 @@ const Image = (props) => {
     image,
     numCols,
     width,
-    deleteImage
+    deleteImage,
+    myWidth
   } = props
 
-  // green('Image: image', image)
-  const calcWidth = (width - 20) / numCols
+
+
+  green('Image: width', width)
+  green('Image: margin', image.padding)
+  green('Image: myWidth', myWidth)
+
+
+  /* Calc height of image to be same as width */
+  //
+  const sumOfMargins = numCols * 4 // sum of left & right margins
+
+  const availableWidth = width - sumOfMargins
+  // const calcWidth = (width - ((numCols+1) * 4)) / numCols
 
   const wrapperStyle = {
-    height: calcWidth,
-    flexBasis: `${100 / numCols}%`
+    // height: calcWidth,
+    flexBasis: `${100 / numCols}%`,
+    margin: image.padding,
   }
+
+  // green('wrapperStyle', wrapperStyle.padding)
   return (
     <div className={classes.wrapper} style={wrapperStyle}>
-      <div className={classes.inner}>
+      {/* <div className={classes.inner}>
       <ImageToolbar
         deleteImage={deleteImage}
         imageKey={image.Key}
       />
       <img src={image.url} alt='unknown' className={classes.imgFluid} />
-      </div>
+      </div> */}
     </div>
   )
 }
@@ -41,12 +56,13 @@ const styles = theme => ({
 
     flexGrow: 0,
     flexShrink: 0,
-    // position: 'relative',
+    position: 'relative',
     // '&:nth-child(-n+2)': {
       // backgroundColor: 'blue',
       // // border: '3px solid blue',
       // padding: '4px 0 0 4px',
     // },
+    border: '1px solid red'
   },
   inner: {
     display: 'flex',
@@ -55,6 +71,7 @@ const styles = theme => ({
     padding: '0 16px',
     width: '100%',
     height: '100%',
+    // border: '1px solid green'
   },
   imgFluid: {
     display: 'block',
@@ -65,12 +82,11 @@ const styles = theme => ({
 })
 
 // export default withSizes()(Image)
-
 const mapSizesToProps = ({ width }) => ({
-  width,
+  myWidth: width,
 })
 
 export default compose(
   injectSheet(styles),
-  withSizes(mapSizesToProps)
+  withSizes(mapSizesToProps),
 )(Image)

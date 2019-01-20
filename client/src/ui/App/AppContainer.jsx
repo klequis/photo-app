@@ -39,7 +39,7 @@ class AppContainer extends React.Component {
   }
 
   getImages = () => {
-    green('AppContainer.getImages: maxKeys', this.props.maxKeys)
+    // green('AppContainer.getImages: maxKeys', this.props.maxKeys)
     this.props.imagesListRequest(this.props.maxKeys)
   }
 

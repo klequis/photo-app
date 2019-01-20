@@ -5,7 +5,7 @@ import injectSheet from 'react-jss'
 
 // User
 import Images from 'ui/Images'
-import ToolbarBottom from 'ui/ToolbarBottom'
+// import ToolbarBottom from 'ui/ToolbarBottom'
 import EventForm from 'ui/EventForm'
 import { green } from 'logger'
 
@@ -16,7 +16,7 @@ class App extends React.Component {
     return (
       <Router>
         <main id='App-wrapper-main' className={classes.wrapper}>
-            <ToolbarBottom />
+            {/* <ToolbarBottom /> */}
             {/* <Breakpoints /> */}
             <Route exact path='/' component={Images} />
             <Route exact path='/upload' component={EventForm} />

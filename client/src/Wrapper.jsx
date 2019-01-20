@@ -31,6 +31,7 @@ const styles = theme => ({
     },
     body: {
       margin: 0,
+      padding: 0,
       fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
       fontSize: '1rem',
       fontWeight: 300,
