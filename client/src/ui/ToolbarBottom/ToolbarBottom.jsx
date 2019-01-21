@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import injectSheet from 'react-jss'
-import { Link } from 'react-router-dom'
+import ButtonLink from 'elements/ButtonLink'
 import {
   toolbarSetNumCols,
   toolbarSetMaxKeys,
@@ -12,7 +12,8 @@ import {
   getMaxKeys
 } from 'store/selectors/toolbar-selectors'
 import Input from 'elements/Input'
-import Text from 'elements/Text'
+import ControlLabel from 'elements/ControlLabel'
+import Button from 'elements/Button'
 
 
 import { green } from 'logger'
@@ -36,13 +37,27 @@ class ToolbarBottom extends React.Component {
     // green('ToolbarBottom: maxKeys', maxKeys)
     return (
       <div className={classes.wrapper}>
-        <label><Text caption noMargin>columns:</Text></label>
-        <Input type='number' className={classes.numCols} value={numCols} onChange={this.numColsChange} />
-
-        <Input type='number' value={maxKeys} onChange={this.maxKeysChange} />
-        <button>Refresh</button>
-        <Link to='/' className={classes.upload}>Home</Link>
-        <Link to='/upload' className={classes.upload}>Upload</Link>
+        <div className={classes.actions}>
+          <ControlLabel>Columns:</ControlLabel>
+          <Input
+            className={classes.numCols}
+            onChange={this.numColsChange}
+            type='number'
+            value={numCols}
+          />
+          <ControlLabel>Images:</ControlLabel>
+          <Input
+            className={classes.maxKeys}
+            onChange={this.maxKeysChange}
+            type='number'
+            value={maxKeys}
+          />
+          <Button className={classes.maxKeysRefresh}>Refresh</Button>
+        </div>
+        <nav className={classes.nav}>
+          <ButtonLink to='/' className={classes.upload}>Home</ButtonLink>
+          <ButtonLink to='/upload' className={classes.upload}>Upload</ButtonLink>
+        </nav>
       </div>
     )
   }
@@ -55,8 +70,17 @@ const styles = theme => ({
   wrapper: {
     display: 'flex',
     alignItems: 'center',
-    padding: '3px 10px',
+    padding: '5px 10px',
+    justifyContent: 'space-between'
     // backgroundColor: 'red',
+  },
+  actions: {
+    display: 'flex',
+  },
+  nav: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   numCols: {
     display: 'flex',
@@ -65,9 +89,11 @@ const styles = theme => ({
     width: 50,
   },
   maxKeys: {
-
+    // marginRight: 5,
+    width: 50,
+  },
+  maxKeysRefresh: {
     marginRight: 30,
-    // height: '100%',
   },
   upload: {
     color: 'white',

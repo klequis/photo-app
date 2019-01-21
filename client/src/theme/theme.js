@@ -14,6 +14,11 @@ const theme = {
     // },
 
   },
+  buttons: {
+    toobarButton: {
+
+    }
+  },
   palette: {
     action: {
       hoverOpacity: 0.1,
