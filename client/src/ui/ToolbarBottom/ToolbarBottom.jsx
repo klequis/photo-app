@@ -11,6 +11,9 @@ import {
   getNumCols,
   getMaxKeys
 } from 'store/selectors/toolbar-selectors'
+import Input from 'elements/Input'
+import Text from 'elements/Text'
+
 
 import { green } from 'logger'
 
@@ -33,12 +36,11 @@ class ToolbarBottom extends React.Component {
     // green('ToolbarBottom: maxKeys', maxKeys)
     return (
       <div className={classes.wrapper}>
+        <label><Text caption noMargin>columns:</Text></label>
+        <Input type='number' className={classes.numCols} value={numCols} onChange={this.numColsChange} />
 
-        <input type='number' className={classes.numCols} value={numCols} onChange={this.numColsChange} />
-        <div className={classes.maxKeys}>
-          <input type='number' value={maxKeys} onChange={this.maxKeysChange} />
-          <button>Refresh</button>
-        </div>
+        <Input type='number' value={maxKeys} onChange={this.maxKeysChange} />
+        <button>Refresh</button>
         <Link to='/' className={classes.upload}>Home</Link>
         <Link to='/upload' className={classes.upload}>Upload</Link>
       </div>
@@ -52,11 +54,18 @@ class ToolbarBottom extends React.Component {
 const styles = theme => ({
   wrapper: {
     display: 'flex',
+    alignItems: 'center',
+    padding: '3px 10px',
+    // backgroundColor: 'red',
   },
   numCols: {
+    display: 'flex',
+    alignItems: 'center',
     marginRight: 30,
+    width: 50,
   },
   maxKeys: {
+
     marginRight: 30,
     // height: '100%',
   },

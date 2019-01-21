@@ -7,7 +7,7 @@ import {
 // eslint-disable-next-line
 import { blue } from 'logger'
 
-export const numCols = (state = 3, { type, payload }) => {
+export const numCols = (state = 7, { type, payload }) => {
   switch (type) {
     case toolbarSetNumColsKey:
       return payload.numCols
@@ -16,7 +16,7 @@ export const numCols = (state = 3, { type, payload }) => {
   }
 }
 
-export const maxKeys = (state = 3, { type, payload }) => {
+export const maxKeys = (state = 25, { type, payload }) => {
   switch (type) {
     case toolbarSetMaxKeysKey:
       return payload.numKeys

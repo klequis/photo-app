@@ -31,7 +31,13 @@ const theme = {
         name: 'black',
         value: '#000'
       }
-    ]
+    ],
+    background: {
+      dark: '#212121',
+      medium: '#333333',
+      light: '#666666',
+      bright: '#cccccc',
+    }
 
 
   },

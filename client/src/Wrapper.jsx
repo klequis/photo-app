@@ -41,7 +41,7 @@ const styles = theme => ({
       '@media print': {
         minWidth: 320,
       },
-      backgroundColor: 'red',
+      // backgroundColor: 'red',
     },
     '*, *::before, *::after': {
       boxSizing: 'inherit',

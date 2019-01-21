@@ -10,68 +10,71 @@ const Image = (props) => {
     classes,
     image,
     numCols,
-    width,
     deleteImage,
-    myWidth
   } = props
-
-
-
-  green('Image: width', width)
-  green('Image: margin', image.padding)
-  green('Image: myWidth', myWidth)
-
-
-  /* Calc height of image to be same as width */
-  //
-  const sumOfMargins = numCols * 4 // sum of left & right margins
-
-  const availableWidth = width - sumOfMargins
-  // const calcWidth = (width - ((numCols+1) * 4)) / numCols
-
+  green('numCols', numCols)
   const wrapperStyle = {
-    // height: calcWidth,
-    flexBasis: `${100 / numCols}%`,
-    margin: image.padding,
+    flexBasis: `${100/numCols}%`
+    // flexBasis: '33.333333%',
   }
 
-  // green('wrapperStyle', wrapperStyle.padding)
-  return (
+return (
     <div className={classes.wrapper} style={wrapperStyle}>
-      {/* <div className={classes.inner}>
-      <ImageToolbar
-        deleteImage={deleteImage}
-        imageKey={image.Key}
-      />
-      <img src={image.url} alt='unknown' className={classes.imgFluid} />
-      </div> */}
+      <div className={classes.wrapperInner}>
+        <div className={classes.inner}>
+          {/* <ImageToolbar
+            deleteImage={deleteImage}
+            imageKey={image.Key}
+          /> */}
+          <img src={image.url} alt='unknown' className={classes.imgFluid} />
+        </div>
+      </div>
     </div>
   )
 }
 // border: '1px solid white',
 const styles = theme => ({
   wrapper: {
-    backgroundColor: 'rgb(100, 100, 100)',
-    // padding: '4px 4px 4px 4px',
-
+    fontWeight: 'bold',
+    color: 'white',
     flexGrow: 0,
     flexShrink: 0,
     position: 'relative',
-    // '&:nth-child(-n+2)': {
-      // backgroundColor: 'blue',
-      // // border: '3px solid blue',
-      // padding: '4px 0 0 4px',
-    // },
-    border: '1px solid red'
+    '&::after': {
+      content: '""',
+      float: 'left',
+      display: 'block',
+      paddingTop: '100%'
+    },
+
+    // margin: 2,
+    // border: '1px solid red',
+    backgroundColor: 'transparent',
+    padding: 1,
   },
-  inner: {
-    display: 'flex',
-    alignItems: 'center',
-    backgroundColor: 'rgb(50, 50, 50)',
-    padding: '0 16px',
+  wrapperInner: {
     width: '100%',
     height: '100%',
-    // border: '1px solid green'
+    borderRadius: '4%',
+    padding: 2,
+    // border: '1px solid green',
+    background: theme.palette.background.light,
+    '&:hover': {
+      backgroundColor: theme.palette.background.bright,
+    },
+  },
+  inner: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    top: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    // backgroundColor: 'blue',
+    margin: '0.5rem',
+    // border: '1px solid blue',
   },
   imgFluid: {
     display: 'block',

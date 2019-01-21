@@ -16,7 +16,6 @@ const ImageRow = ({ classes, children, width }) => {
 const styles = theme => ({
   wrapper: {
     display: 'flex',
-    backgroundColor: 'orange',
   }
 })
 

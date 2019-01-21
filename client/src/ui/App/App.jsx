@@ -5,7 +5,7 @@ import injectSheet from 'react-jss'
 
 // User
 import Images from 'ui/Images'
-// import ToolbarBottom from 'ui/ToolbarBottom'
+import ToolbarBottom from 'ui/ToolbarBottom'
 import EventForm from 'ui/EventForm'
 import { green } from 'logger'
 
@@ -16,7 +16,7 @@ class App extends React.Component {
     return (
       <Router>
         <main id='App-wrapper-main' className={classes.wrapper}>
-            {/* <ToolbarBottom /> */}
+            <ToolbarBottom />
             {/* <Breakpoints /> */}
             <Route exact path='/' component={Images} />
             <Route exact path='/upload' component={EventForm} />
@@ -27,16 +27,15 @@ class App extends React.Component {
   }
 }
 
-const styles = {
+const styles = theme => ({
   wrapper: {
-    backgroundColor: 'green',
-    width: '100%',
-    height: '100%',
+    width: '100vw',
+    height: '100vh',
     display: 'flex',
     flexDirection: 'column',
-    // flexGrow: 0,
-    // flexShrink: 0,
+    // padding: 4,
+    backgroundColor: theme.palette.background.dark
   },
-}
+})
 
 export default injectSheet(styles)(App)

@@ -13,9 +13,7 @@ import { getRequestStatus } from 'store/selectors/request-selectors'
 import Image from './Image'
 import { getImages } from 'store/selectors/image-selectors'
 import ImageRow from './ImageRow'
-import { merge } from 'ramda'
 import { green } from 'logger'
-import withSizes from 'react-sizes'
 
 const createGroups = (images, numCols) => {
   const grouped = []
@@ -25,59 +23,9 @@ const createGroups = (images, numCols) => {
   return grouped
 }
 
-const addGroupMeta = (groups) => {
-  const numGroups = groups.length
-  const newGroups = []
-
-  for (let i=0; i<numGroups; i++) {
-
-    const numItemsPreviousGroup = i !== 0 ? groups[i-1].length : 0
-    // const numItemsNextGroup = i + 1 < numGroups ? groups[i+1].length : 0
-    const numItemsInGroup = groups[i].length
-
-    const newGroup = groups[i].map((i, idx) => {
-      const itemPosition = idx + 1 // 1 through the number of cols
-      // const bottom = itemPosition <= numItemsNextGroup ? 0 : 4
-      const top = itemPosition <= numItemsPreviousGroup ? 0 : 4
-
-
-      const right = itemPosition < numItemsInGroup ? 0 : 4
-
-      // green(`itemPosition:${itemPosition}, numItems:${numItemsInGroup}, right:${right}`)
-      // const padding = `4px ${right}${right !== 0 ? 'px' : ''} ${bottom}${bottom !== 0 ? 'px' : ''} 4px`
-      // const paddingTop = `${top}${top !== 0 ? 'px' : ''}`
-      // const paddingRight = `${right}${right !== 0 ? 'px' : ''}`
-      // const padding = `${paddingTop} ${paddingRight} 4px 4px`
-      const a = [top, right, 4, 4]
-      const iNew = merge(i, { padding: a })
-
-      return iNew
-    })
-
-    newGroups.push(newGroup)
-
-  }
-
-  return newGroups
-
-}
-
-const groupImages = (images, numCols) => {
-  const groups = createGroups(images, numCols)
-  const groupsWithMeta = addGroupMeta(groups)
-  return groupsWithMeta
-}
-
 class Images extends React.Component {
   state = {
     selected: [],
-    size: {},
-  }
-
-  refCallback = element => {
-    this.setState({
-      size: element.getBoundingClientRect()
-    })
   }
 
   deleteImage = async (key) => {
@@ -85,16 +33,10 @@ class Images extends React.Component {
     await this.props.imagesDeleteOneRequest(key)
   }
 
-/*
-Bottom Margin
-- numItemsNextRow
-- positionCurrentItem
-*/
-
   renderImages = () => {
 
     const { images, numCols, width } = this.props
-    const imageGroups = groupImages(images, numCols)
+    const imageGroups = createGroups(images, numCols)
     // green('imageGroups', imageGroups)
     return imageGroups.map((ig, idx) => {
       return (
@@ -124,11 +66,9 @@ Bottom Margin
     if (deleteRequestStatus === 'pending') return null
     // green('size', this.state.size)
     // green('Images: width', this.props.width)
-    green('Images: width', this.props.width)
     return (
-      <div ref={this.refCallback} className={classes.wrapper}>
+      <div className={classes.wrapper}>
         {this.renderImages()}
-        {/* <p>width: {this.props.width}</p> */}
       </div>
     )
   }
@@ -138,10 +78,8 @@ const styles = theme => ({
   wrapper: {
     width: '100%',
     height: '100%',
-    backgroundColor: 'blue',
-    // display: 'flex',
-    // flexFlow: 'row wrap'
-
+    backgroundColor: theme.palette.background.medium,
+    overflow: 'auto',
   }
 })
 
@@ -153,14 +91,9 @@ const mstp = (state) => {
   }
 }
 
-const mapSizesToProps = ({ width }) => ({
-  width,
-})
-
 const actions = { imagesDeleteOneRequest }
 
 export default compose(
   injectSheet(styles),
-  withSizes(mapSizesToProps),
   connect(mstp, actions)
 )(Images)
