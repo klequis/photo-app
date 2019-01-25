@@ -20,12 +20,12 @@ const Image = (props) => {
 
 return (
     <div className={classes.wrapper} style={wrapperStyle}>
+      <ImageToolbar
+          deleteImage={deleteImage}
+          imageKey={image.Key}
+      />
       <div className={classes.wrapperInner}>
         <div className={classes.inner}>
-          {/* <ImageToolbar
-            deleteImage={deleteImage}
-            imageKey={image.Key}
-          /> */}
           <img src={image.url} alt='unknown' className={classes.imgFluid} />
         </div>
       </div>
@@ -51,6 +51,7 @@ const styles = theme => ({
     // border: '1px solid red',
     backgroundColor: 'transparent',
     padding: 1,
+    // zIndex: 1,
   },
   wrapperInner: {
     width: '100%',
@@ -62,6 +63,7 @@ const styles = theme => ({
     '&:hover': {
       backgroundColor: theme.palette.background.bright,
     },
+    // zIndex: 2,
   },
   inner: {
     position: 'absolute',
@@ -75,6 +77,7 @@ const styles = theme => ({
     // backgroundColor: 'blue',
     margin: '0.5rem',
     // border: '1px solid blue',
+    // zIndex: 3,
   },
   imgFluid: {
     display: 'block',

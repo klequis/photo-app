@@ -36,7 +36,7 @@ const styles = theme => ({
       fontSize: '1rem',
       fontWeight: 300,
       lineHeight: 1.65,
-      webkitTextSizeAdjust: 'none',
+      WebkitTextSizeAdjust: 'none',
       msOverflowStyle: 'scrollbar',
       '@media print': {
         minWidth: 320,

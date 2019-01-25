@@ -46,6 +46,7 @@
     "react-dev-utils": "^6.0.5",
     "react-dom": "^16.6.0",
     "react-dropzone": "^7.0.1",
+    "react-ink": "^6.4.0",
     "react-jss": "^8.6.1",
     "react-redux": "^5.1.0",
     "react-router-dom": "^4.3.1",
