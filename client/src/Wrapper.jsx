@@ -30,6 +30,8 @@ const styles = theme => ({
       },
     },
     body: {
+      height: '100vh',
+      backgroundColor: '#212121',
       margin: 0,
       padding: 0,
       fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
@@ -49,6 +51,9 @@ const styles = theme => ({
     p: {
       margin: 0,
     },
+    '#root': {
+      height: '100%',
+    }
   },
 
 })

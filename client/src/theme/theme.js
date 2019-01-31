@@ -61,6 +61,15 @@ const theme = {
     // fontWeight: 400,
   },
   section: {
+    default: {
+      color: '#000',
+      backgroundColor: '#fff',
+    },
+    dark: {
+      color: '#fff',
+      // backgroundColor: '#303030',
+      backgroundColor: '#005ca8',
+    },
     darkGrey: {
       color: '#fff',
       // backgroundColor: '#282c34',
