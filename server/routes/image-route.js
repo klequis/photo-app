@@ -7,7 +7,7 @@ import fs from 'fs'
 import S3 from 'aws-sdk/clients/s3'
 
 const router = express.Router()
-const bucketName = 'photo-app-tvc'
+const bucketName = 'upload-to-s3-ex'
 const bucketRegion = 'us-west-2'
 const baseUrl = `https://s3-${bucketRegion}.amazonaws.com/${bucketName}/`
 const s3 = new S3({region: bucketRegion})
@@ -48,16 +48,11 @@ const shapeData = (data) => {
 }
 
 router.get('/', async (req, res) => {
-  // getBucketWebsite()
-  // getSignedUrl()
-  yellow('GET', req)
-  const maxKeys = req.query.maxKeys
+  const maxKeys = 10
   try {
-    // const maxKeys = req.params.maxKeys
-    // yellow('maxKeys', maxKeys)
     const params = {
       Bucket: bucketName,
-      MaxKeys: maxKeys || 10
+      MaxKeys: 10
     }
     const data = await s3.listObjectsV2(params).promise()
     const shapedData = shapeData(data)
@@ -111,7 +106,7 @@ router.post('/', async (req, res) => {
           const s3 = new S3()
           const params = { Bucket: bucketName, Key: newName, Body: data }
           s3.upload(params, function (err, data) {
-            red('done', err, data)
+            red('done', `${err}, ${data}`)
             const ret = pick(['Location', 'Key'], data)
             res.send(ret)
           })

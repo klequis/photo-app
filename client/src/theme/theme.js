@@ -38,7 +38,8 @@ const theme = {
       }
     ],
     background: {
-      dark: '#212121',
+
+      dark: 'rgb(33, 33, 33)',
       medium: '#333333',
       light: '#666666',
       bright: '#cccccc',

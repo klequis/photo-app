@@ -1,5 +1,3 @@
-import { parse } from './cookie-parser'
-/* Dev */
 // eslint-disable-next-line
 import { pink } from 'logger'
 
@@ -18,16 +16,10 @@ const rejectErrors = (res) => {
 }
 
 export const fetchJson = (url, options = {}) => {
-  let token
-  const tokenObj = parse(document.cookie)
   let headers = {
     ...options.headers,
     'Accept': 'application/json',
     'Content-Type': 'application/json',
-  }
-  if (tokenObj.hasOwnProperty('token')) {
-    token = `Token ${tokenObj.token}`
-    headers.authorization = token
   }
 
   return (
