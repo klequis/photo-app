@@ -3,28 +3,14 @@ import { compose } from 'recompose'
 import { connect } from 'react-redux'
 import Dropzone from 'react-dropzone'
 import injectSheet from 'react-jss'
-import { green } from 'logger'
-
-/* User */
-// import * as imageActions from 'store/actions/image-actions'
 import {
   imagesDeleteOneRequest,
-  imagesDeleteOneRequestKey,
   imageUploadOneRequest,
-  imageUploadOneRequestKey,
 } from 'store/actions/image-actions'
-
-// import * as uploadSelectors from 'store/selectors/image-selectors'
 import {
   getUploadedImageUrl,
   getUploadedImageName,
 } from 'store/selectors/image-selectors'
-
-import {
-  getRequestStatus,
-} from 'store/selectors/request-selectors'
-
-import ResponsiveImage from 'elements/ResponsiveImage'
 import DropzoneDefault from './DropzoneDefault'
 import DropzoneReject from './DropzoneReject'
 import DropzoneAccept from './DropzoneAccept'
@@ -48,7 +34,7 @@ class UploadImage extends React.Component {
     let formData = new FormData()
     formData.append('upload', accepted[0])
     // upload the image
-    const ret = await this.props.imageUploadOneRequest(formData)
+    await this.props.imageUploadOneRequest(formData)
   }
   deleteImage = async () => {
     await imagesDeleteOneRequest(this.props.uploadedImageName)
@@ -73,7 +59,6 @@ class UploadImage extends React.Component {
                   // return <div></div>
                 } else {
                   return <DropzoneDefault />
-                  // return <div></div>
                 }
               }}
             </Dropzone>

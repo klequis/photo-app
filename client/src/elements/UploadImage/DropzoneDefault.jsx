@@ -1,11 +1,12 @@
 import React from 'react'
 import injectSheet from 'react-jss'
 import iUpload from 'media/icons/cloud-upload-light.svg'
+import ResponsiveImage from 'elements/ResponsiveImage'
 
 const DropzoneDefault = ({ classes }) => {
   return (
     <div  className={classes.wrapper}>
-      <img src={iUpload} alt='upload' />
+      <ResponsiveImage src={iUpload} className={classes.image} alt='upload' />
       <div>Drag file here</div>
       <div>Or click to browse</div>
     </div>
@@ -14,14 +15,20 @@ const DropzoneDefault = ({ classes }) => {
 
 const styles = theme => ({
   wrapper: {
+    alignItems: 'center',
     backgroundColor: 'grey',
-    width: '100%',
-    height: '100%',
+    color: 'white',
     display: 'flex',
     flexDirection: 'column',
+    fontSize: '1.5em',
+    fontWeight: 500,
+    height: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
-  }
+    width: '100%',
+  },
+  image: {
+    maxHeight: 75,
+  },
 })
 export default injectSheet(styles)(DropzoneDefault)
 
